@@ -2,37 +2,33 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { ListItem } from './components/ListItem.js';
+import { AppHeader } from './components/AppHeader.js';
+
 class App extends React.Component {
 
   testList() {
-    var items = [];
-    for (var i = 0; i < 100; i++) {
-      if (i % 2 == 0) {
-        items.push(
-          <Text key={i} style={[styles.even, styles.row]}>
-            Nothing to see here!
-          </Text>
-        );
-      } else {
-        items.push(
-          <Text key={i} style={[styles.odd, styles.row]}>
-            Something to see here!
-          </Text>
-        );
-      }
-    }
-    return items;
+    return Array(50).fill().map((item, index) => {
+      return (
+        <ListItem key={index}></ListItem>
+      );
+    });
   }
 
   render() {
+
     return (
       <View style={styles.container}>
-        <ScrollView>
+        <StatusBar
+          backgroundColor="lightblue"
+          barStyle="light-content"
+          translucent={false} />
+        <AppHeader></AppHeader>
+        <ScrollView style={styles.listViewStyle}>
           {this.testList()}
         </ScrollView>
       </View>
     );
-    // <StatusBar style="auto" />
   }
 
 }
@@ -41,18 +37,12 @@ export default App;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
+    flex: 1,
     //alignItems: 'center',
     //justifyContent: 'center',
   },
-  odd: {
-    backgroundColor: 'white',
-  },
-  even: {
-    backgroundColor: '#D3D3D3',
-  },
-  row: {
-    padding: 3,
+  listViewStyle: {
+    flex: 1,
   },
 });
